@@ -66,6 +66,28 @@ serverMqttClient.publishJson("topic", jsonObject);
  * 发布Hex
  */
 serverMqttClient.publishHex("topic", new byte[]{97, 98, 99, 100});
+/**
+ * 发布 publishBean
+ */      
+PublishBean publishBean = new PublishBean();
+      publishBean.setTopic("test");
+      publishBean.setPayload(jsonObject);
+      publishBean.setDup(true);
+      publishBean.setRetained(true);
+      publishBean.setMutable(true);
+
+      serverMqttClient.publish(publishBean, new PublishHandler() {
+          @Override
+          public void onSuccess() {
+
+          }
+
+          @Override
+          public void onException(Exception e) {
+
+          }
+      });
+
             
 ```
 

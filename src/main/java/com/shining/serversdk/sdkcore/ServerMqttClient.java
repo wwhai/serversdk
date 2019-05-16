@@ -1,6 +1,8 @@
 package com.shining.serversdk.sdkcore;
 
 import cn.hutool.json.JSONObject;
+import com.shining.serversdk.bean.PublishBean;
+import com.shining.serversdk.handler.PublishHandler;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
@@ -96,6 +98,23 @@ public final class ServerMqttClient implements IServerMqttClient {
         MqttMessage mqttMessage = new MqttMessage();
         mqttMessage.setPayload(bytes);
         return this.publish(topic, mqttMessage);
+    }
+
+    public boolean publish(PublishBean publishBean, PublishHandler publishHandler) {
+        MqttMessage mqttMessage = new MqttMessage();
+        mqttMessage.setQos(publishBean.getQos());
+        mqttMessage.setRetained(publishBean.isRetained());
+        mqttMessage.setPayload(publishBean.getPayload().getBytes());
+        try {
+            client.publish(publishBean.toString(), mqttMessage);
+            publishHandler.onSuccess();
+            return true;
+        } catch (MqttException e) {
+            e.printStackTrace();
+            publishHandler.onException(e);
+
+            return false;
+        }
     }
 
 

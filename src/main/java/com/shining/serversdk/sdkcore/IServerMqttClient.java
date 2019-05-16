@@ -2,6 +2,8 @@ package com.shining.serversdk.sdkcore;
 
 
 import cn.hutool.json.JSONObject;
+import com.shining.serversdk.bean.PublishBean;
+import com.shining.serversdk.handler.PublishHandler;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 /**
@@ -44,5 +46,9 @@ public interface IServerMqttClient {
      */
     boolean publishHex(String topic, byte[] bytes);
 
+    /**
+     * publish
+     */
+    boolean publish(PublishBean publishBean, PublishHandler publishHandler);
 
 }

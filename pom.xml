@@ -6,7 +6,7 @@
 
     <groupId>com.shining</groupId>
     <artifactId>shinelinker-server-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>final</version>
 
 
     <dependencies>

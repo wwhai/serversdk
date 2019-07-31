@@ -16,6 +16,7 @@ public abstract class MessageHandler implements MqttCallback {
      */
     public void connectionLost(Throwable throwable) {
         throwable.printStackTrace();
+        onError(throwable);
 
     }
 
@@ -44,10 +45,26 @@ public abstract class MessageHandler implements MqttCallback {
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
+        onComplete(iMqttDeliveryToken);
     }
 
     /**
      * 消息到达封装JSON
      */
     public abstract void messageArrived(JSONObject receivedMessage);
+
+    /**
+     * 出错处理
+     */
+    public abstract void onError(Throwable throwable);
+
+    /**
+     *
+     */
+    public abstract void onComplete(IMqttDeliveryToken iMqttDeliveryToken);
+
+    /**
+     *
+     */
+    public abstract void onConnected();
 }

@@ -159,7 +159,7 @@ public final class ServerMqttClient implements IServerMqttClient {
         mqttMessage.setRetained(publishBean.isRetained());
         mqttMessage.setPayload(publishBean.getPayload().toString().getBytes());
         try {
-            client.publish(publishBean.toString(), mqttMessage);
+            client.publish(publishBean.getTopic(), mqttMessage);
             publishHandler.onSuccess();
             return true;
         } catch (MqttException e) {
